@@ -7,14 +7,14 @@ function ga(
   target_funtion,
   fitness_function,
   initial_range = [-3, 3],
-  mutation_ratio = 0.001
+  mutation_ratio
 ) {
   if ((mating_rate * population_size) % 2 != 0) {
     alert("mating rate * population size must be even number");
     return;
   }
   let chromosome = [];
-  let best_result = [];
+  let best_results = [];
   chromosome = generate_chromosome(
     population_size,
     num_of_variable,
@@ -22,7 +22,7 @@ function ga(
   );
   for (var i = 0; i < generation; i++) {
     let fitness = chromosome.map((x) => fitness_function(x));
-    best_result.push(Math.min(...chromosome.map((x) => target_funtion(x))));
+    best_results.push(Math.min(...chromosome.map((x) => target_funtion(x))));
     let [crossover_selection, remain_children_index] = roulette_wheel_selection(
       fitness,
       mating_rate
@@ -33,7 +33,7 @@ function ga(
     }
     chromosome = mutation(offspring, mutation_rate, mutation_ratio);
   }
-  return best_result;
+  return best_results;
 }
 
 function generate_chromosome(population_size, num_of_variable, initial_range) {
@@ -97,7 +97,7 @@ function continuous_crossover(chromosome, crossover_selection, rm = 0.5) {
   return children;
 }
 
-function mutation(chromosome, mutation_rate, mutation_ratio = 0.001) {
+function mutation(chromosome, mutation_rate, mutation_ratio) {
   let mutated_chromosome = [];
   for (let i = 0; i < chromosome.length; i++) {
     for (let j = 0; j < chromosome[i].length; j++) {

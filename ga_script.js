@@ -53,7 +53,7 @@ ga_btn.addEventListener("click", function () {
     generation.value,
     statistic
   );
-  var layout = {
+  let layout = {
     title: title,
     xaxis: {
       title: "Generation",
@@ -63,7 +63,13 @@ ga_btn.addEventListener("click", function () {
     },
   };
 
-  Plotly.newPlot("plot", data, layout);
+  let config = {
+    toImageButtonOptions: {
+      filename: title,
+    },
+  };
+
+  Plotly.newPlot("plot", data, layout, config);
 });
 
 population_size.oninput = function () {
